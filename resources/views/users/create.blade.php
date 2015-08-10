@@ -5,7 +5,7 @@
 @stop
             
 @section('content')
-    <h1>Register new user</h1>
+    <h1>Register new user</h1><br>
     
     <div>
     {!! Form::open(['action' => 'UsersController@store']) !!}
