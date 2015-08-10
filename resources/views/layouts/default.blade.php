@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Laravel</title>
+        
+        @yield('title')
 
         <link href="//fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-
         <style>
             html, body {
                 height: 100%;
             }
-
             body {
                 margin: 0;
                 padding: 0;
@@ -18,27 +17,31 @@
                 font-weight: 100;
                 font-family: 'Lato';
             }
-
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
+            label {
                 display: inline-block;
+                width: 150px;
             }
-
-            .title {
-                font-size: 96px;
+            input[type='text'],
+            input[type='password']{
+                width: 307px;
+            }
+            .container {
+                padding: 20px;
+                display: table-cell;
+            }
+            .content {
+                font-size: 1.5em;
+                text-align: left;
+                display: inline-block;
             }
         </style>
     </head>
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Laravel 5</div>
+
+                @yield('content')
+
             </div>
         </div>
     </body>
