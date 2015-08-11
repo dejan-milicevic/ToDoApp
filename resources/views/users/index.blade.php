@@ -5,12 +5,8 @@
 @stop
 
 @section('dropdown')
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ $user->first_name }} {{ $user->last_name }}<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-            <li><a href="/logout">Log out</a></li>
-        </ul>
-    </li>
+    <li><a href="/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ $user->first_name }} {{ $user->last_name }}</a></li>
+    <li><a href="/logout">Log out</a></li>
 @stop
 
 @section('content')

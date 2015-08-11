@@ -2,7 +2,7 @@
 <html>
     <head>
         <link href="//fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{!! asset('/bower_components/bootstrap/dist/css/bootstrap.css') !!}">
         <style>
             html, body {
                 height: 100%;
@@ -57,14 +57,26 @@
                 @yield('content')
 
             </div>
-        </div>
+
+            <br><br>
+            <h1>Angular</h1>
+            <br><br>
+
+            <div ng-app="myApp">
+
+                <div ng-view></div>
+
+            </div>
+
+        </div><br>
 
         <footer>
             @include('includes.footer')
         </footer>
 
-        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        <script src="{!! asset('js/vivify-script.js') !!}"></script>
+        <script src="{!! asset('/bower_components/angular/angular.min.js') !!}"></script>
+        <script src="{!! asset('/bower_components/angular-route/angular-route.min.js') !!}"></script>
+        <script src="{!! asset('/bower_components/angular-bootstrap/ui-bootstrap.min.js') !!}"></script>
+        <script src="{!! asset('/js/angular-script.js') !!}"></script>
     </body>
 </html>
