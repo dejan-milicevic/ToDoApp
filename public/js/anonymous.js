@@ -1,0 +1,2 @@
+anonymousFunction(variable4);
+
