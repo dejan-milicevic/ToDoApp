@@ -51,11 +51,6 @@
             @include('includes.header')
         </header>
 
-        <script>
-            var inlineVariable = 'This is inline variable';
-        </script>
-
-
         <div class="container">
             <div class="content">
 
@@ -70,8 +65,6 @@
 
         <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        <script src="{!! asset('js/variables.js') !!}"></script>
         <script src="{!! asset('js/vivify-script.js') !!}"></script>
-        <script src="{!! asset('js/anonymous.js') !!}"></script>
     </body>
 </html>
