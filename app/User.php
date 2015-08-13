@@ -56,4 +56,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         static::$errors = $validation->errors();
         return false;
     }
+
+    public function todos() {
+        return $this->hasMany('App\Todo');
+    }
 }

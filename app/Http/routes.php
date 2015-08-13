@@ -27,10 +27,12 @@ Route::get('/logout', 'UsersController@logout');
 
 Route::post('authenticate', 'UsersController@authenticate');
 
-Route::get('users', 'UsersController@index');
+//Route::get('users', 'UsersController@index');
 
-Route::get('/users/create', 'UsersController@create');
+//Route::get('/users/create', 'UsersController@create');
 
-Route::post('/users/store', 'UsersController@store');
+//Route::post('/users/store', 'UsersController@store');
 
 Route::resource('/users', 'UsersController');
+
+Route::resource('/api/todos', 'TodosController');

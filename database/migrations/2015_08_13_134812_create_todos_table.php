@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class MakeEmailColumnUnique extends Migration
+class CreateTodosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,11 @@ class MakeEmailColumnUnique extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-           $table->string('email')->unique()->change();
+        Schema::create('todos', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title');
+            $table->boolean('done');
+            $table->integer('priority')->nullable();
         });
     }
 
@@ -24,8 +27,7 @@ class MakeEmailColumnUnique extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-           
-        });
+        Schema::drop('todos');
     }
 }
+

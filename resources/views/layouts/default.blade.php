@@ -22,9 +22,15 @@
                 display: inline-block;
                 width: 150px;
             }
-            input[type='text'],
-            input[type='password']{
+            .logreg input[type='text'],
+            .logreg input[type='password']{
                 width: 436px;
+            }
+            button:disabled {
+                color: lightgrey;
+            }
+            select.repeat:disabled {
+                color: lightgrey;
             }
             .container {
                 padding: 20px;
@@ -39,6 +45,12 @@
             }
             .nav.navbar-nav {
                 font-size: 20px;
+            }
+            .delButton {
+                text-align: right;
+            }
+            .table {
+                padding-bottom: 200px;
             }
         </style>
 
@@ -57,18 +69,7 @@
                 @yield('content')
 
             </div>
-
-            <br><br>
-            <h1>Angular</h1>
-            <br><br>
-
-            <div ng-app="myApp">
-
-                <div ng-view></div>
-
-            </div>
-
-        </div><br>
+        </div>
 
         <footer>
             @include('includes.footer')

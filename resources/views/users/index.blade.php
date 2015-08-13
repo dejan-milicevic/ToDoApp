@@ -10,16 +10,25 @@
 @stop
 
 @section('content')
-    @if ($users->count())
-        <h1>Hello, {{ $user->first_name }}!</h1>
+    <div class="col-md-6">
+        @if ($users->count())
+            <h1>Hello, {{ $user->first_name }}!</h1>
+            <br>
+            <ul>
+            @foreach ($users as $user)
+                    <li>{{ $user->first_name }} {{ $user->last_name }}</li>
+            @endforeach
+            </ul>
+        @else
+            <p>There are no users.</p>
+        @endif
         <br>
-        <ul>
-        @foreach ($users as $user)
-            <li>{{ $user->first_name }} {{ $user->last_name }}</li>
-        @endforeach
-        </ul>
-    @else
-        <p>There are no users.</p>
-    @endif
+    </div>
+
+    <div class="col-md-6" ng-app="myApp">
+
+        <div ng-view></div>
+
+    </div>
 @stop
 

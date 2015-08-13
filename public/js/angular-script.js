@@ -7,6 +7,10 @@ var myAppModule = angular.module('myApp', ['ngRoute'], function($interpolateProv
 myAppModule.config(function($routeProvider) {
    $routeProvider
        .when('/', {
+           templateUrl : '/templates/todo.html',
+           controller  : 'TodoController'
+       })
+       .when('/1', {
            templateUrl : '/templates/1.html',
            controller  : ''
        })
@@ -24,7 +28,61 @@ myAppModule.config(function($routeProvider) {
        });
 });
 
+myAppModule.controller('TodoController', ['$scope', '$http', function($scope, $http) {
+
+    $scope.todos = [];
+    $scope.todo = {};
+
+    $scope.init = function() {
+        $http.get('/api/todos').
+            success(function(data, status, headers, config) {
+                $scope.todos = data;
+            });
+    }
+
+    $scope.addTodo = function() {
+        $http.post('/api/todos', {
+            title: $scope.todo.title,
+            priority: $scope.todo.priority,
+            done: '0'
+        }).success(function(data, status, headers, config) {
+            $scope.todos.push(data);
+            $scope.todo = {}
+        });
+    };
+
+    $scope.updateTodo = function(todo) {
+        $http.put('/api/todos/' + todo.id, {
+            title: todo.title,
+            done: todo.done,
+            priority: todo.priority
+        }).success(function(data, status, headers, config) {
+            todo = data;
+            $scope.todoForEdit = null;
+            $scope.todo = {};
+        });
+    };
+
+    $scope.deleteTodo = function(todo) {
+        $http.delete('/api/todos/' + todo.id)
+            .success(function(data, status, headers, config) {
+                $scope.todos = data;
+            });
+    };
+
+    $scope.enableEditTodo = function(todo) {
+        $scope.todoForEdit = todo;
+        $scope.todo = todo;
+    };
+
+    $scope.init();
+}]);
+
 myAppModule.controller('DoubleController', ['$scope', function($scope) {
+    $scope.double = function(value) { return value * 2; };
+}]);
+
+myAppModule.controller('EditController', ['$scope', function($scope) {
     $scope.double = function(value) { return value * 2; };
 }]);
 
@@ -37,8 +95,6 @@ myAppModule.controller('SpicyController', ['$scope', function($scope) {
     };
 }]);
 
-// configure the module.
-// in this example we will create a greeting filter
 myAppModule.filter('greet', function() {
     return function(name) {
         return 'Hello, ' + name + '!';

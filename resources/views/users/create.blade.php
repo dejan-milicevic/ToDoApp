@@ -10,27 +10,27 @@
     <div>
     {!! Form::open(['action' => 'UsersController@store']) !!}
     {!! Form::token() !!}
-        <div>
+        <div class="logreg">
             {!! Form::label('email', 'E-mail: ') !!}
             {!! Form::text('email') !!}
             {!! $errors->first('email') !!} <br>
         </div>
-        <div>
+        <div class="logreg">
             {!! Form::label('password', 'Password: ') !!}
             {!! Form::password('password') !!}
             {!! $errors->first('password') !!} <br>
         </div>
-        <div>
+        <div class="logreg">
             {!! Form::label('first_name', 'First name: ') !!}
             {!! Form::text('first_name') !!}
             {!! $errors->first('first_name') !!} <br>
         </div>
-        <div>
+        <div class="logreg">
             {!! Form::label('last_name', 'Last name: ') !!}
             {!! Form::text('last_name') !!}
             {!! $errors->first('last_name') !!} <br>
         </div>
-        <div>
+        <div class="logreg">
             {!! Form::label('company', 'Company: ') !!}
             {!! Form::text('company') !!}
             {!! $errors->first('company') !!} <br>
@@ -291,10 +291,12 @@
         </div>
         <div>
             <br>
-            {!! Form::submit('Register') !!}
+            {!! Form::submit('Register') !!}<br><br>
+            <p>Already registered?<a href="/login"> Log in</a></p>
         </div>
     {!! Form::close() !!}
     </div>
+
 @stop
 
 

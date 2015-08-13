@@ -1,0 +1,37 @@
+<div ng-controller="TodoController">
+    <h1>Todo list</h1><br>
+    <div>
+        <select class="selectpicker" ng-model="todo.priority">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+        </select>
+        <input type='text' ng-model="todo.title">
+        <button ng-disabled="!todoForEdit || !todo.title" ng-click="updateTodo(todo)">Edit</button>
+        <button ng-disabled="!todo.title || todoForEdit" ng-click="addTodo()">Add</button>
+    </div>
+    <hr>
+    <div>
+        <table class="table">
+            <tr ng-repeat="todo in todos | orderBy:['done','priority','id']">
+                <td><input type="checkbox" ng-disabled="todoForEdit" ng-true-value="'1'" ng-false-value="'0'" ng-model="todo.done" ng-change="updateTodo(todo)"></td>
+                <td>
+                    <select class="selectpicker repeat" ng-disabled="todoForEdit" ng-model="todo.priority" ng-change="updateTodo(todo)">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                    </select>
+                </td>
+                <td><% todo.title %></td>
+                <td>
+                    <button class="btn btn-primary btn-xs" ng-disabled="todoForEdit" ng-click="enableEditTodo(todo)">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                    <button class="btn btn-danger btn-xs" ng-disabled="todoForEdit" ng-click="deleteTodo(todo)">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
