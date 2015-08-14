@@ -26,11 +26,17 @@
             .logreg input[type='password']{
                 width: 436px;
             }
+            input:disabled {
+                color: lightgrey;
+            }
             button:disabled {
                 color: lightgrey;
             }
             select.repeat:disabled {
                 color: lightgrey;
+            }
+            #add {
+                display:inline-block;
             }
             .container {
                 padding: 20px;
@@ -45,12 +51,6 @@
             }
             .nav.navbar-nav {
                 font-size: 20px;
-            }
-            .delButton {
-                text-align: right;
-            }
-            .table {
-                padding-bottom: 200px;
             }
         </style>
 

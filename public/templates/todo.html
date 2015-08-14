@@ -1,14 +1,16 @@
 <div ng-controller="TodoController">
     <h1>Todo list</h1><br>
     <div>
-        <select class="selectpicker" ng-model="todo.priority">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-        </select>
-        <input type='text' ng-model="todo.title">
-        <button ng-disabled="!todoForEdit || !todo.title" ng-click="updateTodo(todo)">Edit</button>
-        <button ng-disabled="!todo.title || todoForEdit" ng-click="addTodo()">Add</button>
+        <form id="add" ng-submit="addTodo()">
+            <select class="selectpicker" ng-model="todo.priority">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+            </select>
+            <input type='text' ng-model="todo.title">
+            <input type="submit" value="Add" ng-disabled="!todo.title || todoForEdit">
+        </form>
+        <button id="edit" ng-hide="!todoForEdit || !todo.title" ng-click="updateTodo(todo)">Edit</button>
     </div>
     <hr>
     <div>
