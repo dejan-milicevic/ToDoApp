@@ -47,17 +47,32 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+//    public function authenticateLogin()
+//    {
+//        if (Auth::attempt(['email' => Input::get('email'), 'password' => Input::get('password')]))
+//        {
+//            return true;
+//        }
+//
+//        return false;
+//    }
     
-    public static function isValid($data) {
+    public static function isValid($data)
+    {
         $validation = Validator::make($data, static::$rules);
         
-        if ($validation->passes()) return true;
+        if ($validation->passes())
+        {
+            return true;
+        }
         
         static::$errors = $validation->errors();
         return false;
     }
 
-    public function todos() {
+    public function todos()
+    {
         return $this->hasMany('App\Todo');
     }
 }

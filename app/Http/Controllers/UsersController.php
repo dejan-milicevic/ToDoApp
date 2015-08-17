@@ -7,7 +7,7 @@ use App\Http\Controllers;
 use Input;
 use Redirect;
 use Hash;
-use Auth;
+use App\Services\UserService;
 
 class UsersController extends Controller
 {
@@ -47,21 +47,13 @@ class UsersController extends Controller
     
     public function index()
     { // Route: '/users'
-        if (Auth::check())
-        {
-            $users = User::all();
-            $user = Auth::user();
-            return view('/users/index', ['users' => $users, 'user' => $user]);
-        }
-        return view('login');
+        $users = User::all();
+        $user = Auth::user();
+        return view('/users/index', ['users' => $users, 'user' => $user]);
     }
 
     public function create()
     { // Route: '/users/create'
-        if (Auth::check())
-        {
-            return Redirect::to('users');
-        }
         return view('/users/create');
     }
     
@@ -74,17 +66,10 @@ class UsersController extends Controller
                 ->withInput()
                 ->withErrors(User::$errors);
         }
-        
-        $user = new User;
-        $user->email = Input::get('email');
-        $user->password = Hash::make(Input::get('password'));
-        $user->first_name = Input::get('first_name');
-        $user->last_name = Input::get('last_name');
-        $user->company = Input::get('company');
-        $user->country = Input::get('country');
-        $user->save();
-        
-        Auth::login($user);
+
+        $userService = new UserService();
+        $userService->createUser(Input::all());
+
         return Redirect::to('users');
     }
 }

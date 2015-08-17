@@ -12,6 +12,8 @@
 |
 */
 
+Route::resource('/users', 'UsersController');
+
 Route::get('/', [
     'middleware' => 'auth',
     'uses' => 'UsersController@home'
@@ -22,16 +24,19 @@ Route::get('/login', [
     'uses' => 'UsersController@login'
 ]);
 
-Route::get('/login', [
-    'middleware' => 'guest',
-    'uses' => 'UsersController@login'
+Route::get('/users', [
+    'middleware' => 'auth',
+    'uses' => 'UsersController@index'
 ]);
 
-Route::get('/logout', 'UsersController@logout');
+Route::get('/users/create', [
+    'middleware' => 'guest',
+    'uses' => 'UsersController@create'
+]);
 
 Route::post('authenticate', 'UsersController@authenticate');
 
-Route::resource('/users', 'UsersController');
+Route::get('/logout', 'UsersController@logout');
 
 Route::group(['middleware' => 'auth'], function()
 {

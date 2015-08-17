@@ -39,7 +39,8 @@ myAppModule.controller('TodoController', ['$scope', '$http', function($scope, $h
     $scope.init = function()
     {
         $http.get('/api/todos').
-            success(function(data, status, headers, config) {
+            success(function(data, status, headers, config)
+            {
                 $scope.todos = data;
                 console.log(data);
             });
@@ -47,16 +48,17 @@ myAppModule.controller('TodoController', ['$scope', '$http', function($scope, $h
 
     $scope.addTodo = function()
     {
-        $http.post('/api/todos',
-            {
-            title: $scope.todo.title,
-            priority: $scope.todo.priority,
-            done: '0'
-            }).success(function(data, status, headers, config)
-            {
-                $scope.todos.push(data);
-                $scope.todo = {}
-            });
+        if($scope.todo.title != '') {
+            $http.post('/api/todos',
+                {
+                    title: $scope.todo.title,
+                    priority: $scope.todo.priority,
+                    done: '0'
+                }).success(function (data, status, headers, config) {
+                    $scope.todos.push(data);
+                    $scope.todo = {}
+                });
+        }
     };
 
     $scope.updateTodo = function(todo)
