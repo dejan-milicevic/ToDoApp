@@ -12,10 +12,14 @@
 |
 */
 
-//Route::get('/', 'UsersController@home');
 Route::get('/', [
     'middleware' => 'auth',
     'uses' => 'UsersController@home'
+]);
+
+Route::get('/login', [
+    'middleware' => 'guest',
+    'uses' => 'UsersController@login'
 ]);
 
 Route::get('/login', [
@@ -27,12 +31,9 @@ Route::get('/logout', 'UsersController@logout');
 
 Route::post('authenticate', 'UsersController@authenticate');
 
-//Route::get('users', 'UsersController@index');
-
-//Route::get('/users/create', 'UsersController@create');
-
-//Route::post('/users/store', 'UsersController@store');
-
 Route::resource('/users', 'UsersController');
 
-Route::resource('/api/todos', 'TodosController');
+Route::group(['middleware' => 'auth'], function()
+{
+    Route::resource('/api/todos', 'TodosController');
+});

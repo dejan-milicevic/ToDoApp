@@ -9,7 +9,8 @@ use Redirect;
 use Hash;
 use Auth;
 
-class UsersController extends Controller {
+class UsersController extends Controller
+{
 
 	/**
     * Show the profile for the given user.
@@ -18,33 +19,36 @@ class UsersController extends Controller {
     * @return Response
     */
     
-    public function authenticate() {
-       // dd(Auth::attempt(['email' => Input::get('email'), 'password' => Input::get('password')]));
-        
-        if (Auth::attempt(['email' => Input::get('email'), 'password' => Input::get('password')])) {
+    public function authenticate()
+    {
+        if (Auth::attempt(['email' => Input::get('email'), 'password' => Input::get('password')]))
+        {
             // Authentication passed...
             return Redirect::to('/users');
         }
         return Redirect::back()->withInput();
     }
     
-    public function home() { // Route: '/'
-//        if (Auth::check()) return Redirect::to('users');
+    public function home()
+    { // Route: '/'
         return Redirect::to('/users');
     }
 
-    public function login() { // Route: '/login'
-//        if (Auth::check()) return Redirect::to('users');
+    public function login()
+    { // Route: '/login'
         return view('/login');
     }
     
-    public function logout() { // Route: '/logout'
+    public function logout()
+    { // Route: '/logout'
         Auth::logout();
         return Redirect::to('/login');
     }
     
-    public function index() { // Route: '/users'
-        if (Auth::check()) {
+    public function index()
+    { // Route: '/users'
+        if (Auth::check())
+        {
             $users = User::all();
             $user = Auth::user();
             return view('/users/index', ['users' => $users, 'user' => $user]);
@@ -52,19 +56,20 @@ class UsersController extends Controller {
         return view('login');
     }
 
-//    public function show($first_name) { // Route: '/users/{first_name}'
-//        $user = User::whereFirst_name($first_name)->first();
-//        return view('users.show', ['user' => $user]);
-//    }
-
-    public function create() { // Route: '/create'
-        if (Auth::check()) return Redirect::to('users');
+    public function create()
+    { // Route: '/users/create'
+        if (Auth::check())
+        {
+            return Redirect::to('users');
+        }
         return view('/users/create');
     }
     
-    public function store() { // Route: '/users/store'
+    public function store()
+    { // Route: '/users/store'
         
-        if ( ! User::isValid(Input::all())) {
+        if ( ! User::isValid(Input::all()))
+        {
             return Redirect::back()
                 ->withInput()
                 ->withErrors(User::$errors);
@@ -81,6 +86,5 @@ class UsersController extends Controller {
         
         Auth::login($user);
         return Redirect::to('users');
-        //return Redirect::route('users.index');
     }
 }
