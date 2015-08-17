@@ -37,6 +37,7 @@ myAppModule.controller('TodoController', ['$scope', '$http', function($scope, $h
         $http.get('/api/todos').
             success(function(data, status, headers, config) {
                 $scope.todos = data;
+                console.log(data);
             });
     }
 
