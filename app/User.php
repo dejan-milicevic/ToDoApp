@@ -8,6 +8,7 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Validator;
+use App\Services\UserService;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
@@ -23,8 +24,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         'company' => 'required',
         'country' => 'required'
     ];
-    
-    public static $errors;
 
     /**
      * The database table used by the model.
@@ -47,16 +46,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
-
-//    public function authenticateLogin()
-//    {
-//        if (Auth::attempt(['email' => Input::get('email'), 'password' => Input::get('password')]))
-//        {
-//            return true;
-//        }
-//
-//        return false;
-//    }
     
     public static function isValid($data)
     {
@@ -67,8 +56,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
             return true;
         }
         
-        static::$errors = $validation->errors();
-        return false;
+        return $validation->errors();
     }
 
     public function todos()

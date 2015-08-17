@@ -8,6 +8,7 @@ use Input;
 use Redirect;
 use Hash;
 use App\Services\UserService;
+use Auth;
 
 class UsersController extends Controller
 {
@@ -60,16 +61,18 @@ class UsersController extends Controller
     public function store()
     { // Route: '/users/store'
         
-        if ( ! User::isValid(Input::all()))
+        if (($errors = User::isValid(Input::all())) === true)
         {
-            return Redirect::back()
-                ->withInput()
-                ->withErrors(User::$errors);
+            $userService = new UserService();
+            $userService->createUser(Input::all());
+
+            return Redirect::to('users');
         }
 
-        $userService = new UserService();
-        $userService->createUser(Input::all());
+        return Redirect::back()
+            ->withInput()
+            ->withErrors($errors);
 
-        return Redirect::to('users');
+
     }
 }

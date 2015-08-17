@@ -8,7 +8,6 @@ use Hash;
 
 class UserService
 {
-
     public function createUser($data)
     {
         $user = new User;
