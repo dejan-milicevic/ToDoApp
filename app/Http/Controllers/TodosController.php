@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Todo;
 use Input;
 use Auth;
+use Validator;
 
 class TodosController extends Controller
 {
@@ -19,7 +20,7 @@ class TodosController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $todos = $user->todos()->orderBy('priority')->get();
+        $todos = $user->getMyTodos();
         return $todos;
     }
 
@@ -31,9 +32,16 @@ class TodosController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Auth::user();
-        $todo = $user->todos()->save(new Todo(Input::all()));
-        return $todo;
+        // da li je req validan
+        if (($errors = Todo::isValid(Input::all())) === true)
+        {
+            //ako jeste, kreiracu novi todo i vraticu taj isti todo
+            $newTodo = new Todo(Input::all());
+            return Auth::user()->todos()->save($newTodo);
+        }
+
+        // ovde cu uraditi nesto ako request nije validan
+        return response()->json($errors, 400);
     }
 
     /**
@@ -45,13 +53,17 @@ class TodosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = Auth::user();
-        $todos = $user->todos()->find($id);
-        $todos->done = Input::input('done');
-        $todos->priority = Input::input('priority');
-        $todos->title = Input::input('title');
-        $todos->save();
-        return $todos;
+        $todos = Auth::user()->todos()->find($id);
+        if ($todos)
+        {
+            if (($errors = Todo::isValid(Input::all())) === true)
+            {
+                $todos = Auth::user()->updateMyTodos($id);
+                return $todos;
+            }
+            return response()->json($errors, 400);
+        }
+        return dd($todos);
     }
 
     /**
@@ -63,9 +75,8 @@ class TodosController extends Controller
     public function destroy($id)
     {
         $user = Auth::user();
-        $todo = $user->todos()->find($id);
-        $todo->delete();
-        $todos = $user->todos()->orderBy('priority')->get();
+        $user->deleteMyTodo($id);
+        $todos = $user->getMyTodos();;
         return $todos;
     }
 }

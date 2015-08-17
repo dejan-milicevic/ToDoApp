@@ -38,7 +38,7 @@ myAppModule.controller('TodoController', ['$scope', '$http', function($scope, $h
 
     $scope.init = function()
     {
-        $http.get('/api/todos').
+        $http.get('/api/todos'). // index
             success(function(data, status, headers, config)
             {
                 $scope.todos = data;
@@ -48,37 +48,38 @@ myAppModule.controller('TodoController', ['$scope', '$http', function($scope, $h
 
     $scope.addTodo = function()
     {
-        if($scope.todo.title != '') {
-            $http.post('/api/todos',
-                {
-                    title: $scope.todo.title,
-                    priority: $scope.todo.priority,
-                    done: '0'
-                }).success(function (data, status, headers, config) {
-                    $scope.todos.push(data);
-                    $scope.todo = {}
-                });
-        }
+        $http.post('/api/todos', // store
+            {
+                title: $scope.todo.title,
+                priority: $scope.todo.priority,
+                done: '0'
+            }).success(function (data, status, headers, config) {
+                $scope.todos.push(data);
+                $scope.todo = {}
+            }).catch(function (response) {
+                alert(response.data.title[0]);
+            });
     };
 
     $scope.updateTodo = function(todo)
     {
-        $http.put('/api/todos/' + todo.id,
+        $http.put('/api/todos/' + todo.id, // update
             {
                 title: todo.title,
                 done: todo.done,
                 priority: todo.priority
-            }).success(function(data, status, headers, config)
-            {
+            }).success(function (data, status, headers, config) {
                 todo = data;
                 $scope.todoForEdit = null;
                 $scope.todo = {};
+            }).catch(function (response) {
+                alert(response.data.id[0]);
             });
     };
 
     $scope.deleteTodo = function(todo)
     {
-        $http.delete('/api/todos/' + todo.id)
+        $http.delete('/api/todos/' + todo.id) // destroy
             .success(function(data, status, headers, config)
             {
                 $scope.todos = data;

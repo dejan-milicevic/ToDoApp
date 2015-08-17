@@ -8,7 +8,7 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Validator;
-use App\Services\UserService;
+use Input;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
@@ -50,13 +50,31 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public static function isValid($data)
     {
         $validation = Validator::make($data, static::$rules);
-        
         if ($validation->passes())
         {
             return true;
         }
-        
         return $validation->errors();
+    }
+
+    public function getMyTodos()
+    {
+        return $this->todos()->orderBy('priority')->get();
+    }
+
+    public function updateMyTodos($id)
+    {
+        $todos = $this->todos()->find($id);
+        $todos->done = Input::input('done');
+        $todos->priority = Input::input('priority');
+        $todos->title = Input::input('title');
+        $todos->save();
+        return $todos;
+    }
+
+    public function deleteMyTodo($id)
+    {
+        return $this->todos()->find($id)->delete();
     }
 
     public function todos()

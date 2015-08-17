@@ -30,37 +30,36 @@ class UsersController extends Controller
         return Redirect::back()->withInput();
     }
     
-    public function home()
-    { // Route: '/'
+    public function home() // /
+    {
         return Redirect::to('/users');
     }
 
-    public function login()
-    { // Route: '/login'
+    public function login() // /login
+    {
         return view('/login');
     }
     
-    public function logout()
-    { // Route: '/logout'
+    public function logout() // /logout
+    {
         Auth::logout();
         return Redirect::to('/login');
     }
     
-    public function index()
-    { // Route: '/users'
+    public function index() // /users
+    {
         $users = User::all();
         $user = Auth::user();
         return view('/users/index', ['users' => $users, 'user' => $user]);
     }
 
-    public function create()
-    { // Route: '/users/create'
+    public function create() // /users/create
+    {
         return view('/users/create');
     }
     
-    public function store()
-    { // Route: '/users/store'
-        
+    public function store() // /users/store
+    {
         if (($errors = User::isValid(Input::all())) === true)
         {
             $userService = new UserService();
@@ -68,11 +67,8 @@ class UsersController extends Controller
 
             return Redirect::to('users');
         }
-
         return Redirect::back()
             ->withInput()
             ->withErrors($errors);
-
-
     }
 }
