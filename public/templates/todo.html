@@ -11,6 +11,7 @@
             <input type="submit" value="Add" ng-disabled="!todo.title || todoForEdit">
         </form>
         <button id="edit" ng-hide="!todoForEdit || !todo.title" ng-click="updateTodo(todo)">Edit</button>
+        <button id="edit" ng-show="todo.title && previousTitle == todo.title" ng-click="disableEditTodo()">Cancel</button>
     </div>
     <hr>
     <div>

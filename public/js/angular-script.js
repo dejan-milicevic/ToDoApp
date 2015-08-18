@@ -68,20 +68,23 @@ myAppModule.controller('TodoController', ['$scope', '$http', function($scope, $h
 
     $scope.updateTodo = function(todo)
     {
-        $http.put('/api/todos/' + todo.id, // update
-            {
-                title: todo.title,
-                done: todo.done,
-                priority: todo.priority
-            }).success(function (data, status, headers, config)
-            {
-                todo = data;
-                $scope.todoForEdit = null;
-                $scope.todo = {};
-            }).catch(function (response)
-            {
-                alert(response.data.id[0]);
-            });
+        if ($scope.previousTitle != todo.title)
+        {
+            $http.put('/api/todos/' + todo.id, // update
+                {
+                    title: todo.title,
+                    done: todo.done,
+                    priority: todo.priority
+                }).success(function (data, status, headers, config) {
+                    todo = data;
+                    $scope.todoForEdit = null;
+                    $scope.todo = {};
+                }).catch(function (response) {
+                    alert(response.data.id[0]);
+                });
+        } else {
+            alert("Your title hasn't been changed.");
+        }
     };
 
     $scope.deleteTodo = function(todo)
@@ -97,6 +100,13 @@ myAppModule.controller('TodoController', ['$scope', '$http', function($scope, $h
     {
         $scope.todoForEdit = todo;
         $scope.todo = todo;
+        $scope.previousTitle = todo.title;
+    };
+
+    $scope.disableEditTodo = function()
+    {
+        $scope.todoForEdit = null;
+        $scope.todo = {};
     };
 
     $scope.init();
