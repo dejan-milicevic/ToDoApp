@@ -32,7 +32,6 @@ myAppModule.config(function($routeProvider)
 
 myAppModule.controller('TodoController', ['$scope', '$http', function($scope, $http)
 {
-
     $scope.todos = [];
     $scope.todo = {};
 
@@ -43,6 +42,10 @@ myAppModule.controller('TodoController', ['$scope', '$http', function($scope, $h
             {
                 $scope.todos = data;
                 console.log(data);
+                console.log(status);
+                console.log(headers);
+                console.log(config);
+
             });
     }
 
@@ -53,10 +56,12 @@ myAppModule.controller('TodoController', ['$scope', '$http', function($scope, $h
                 title: $scope.todo.title,
                 priority: $scope.todo.priority,
                 done: '0'
-            }).success(function (data, status, headers, config) {
+            }).success(function (data, status, headers, config)
+            {
                 $scope.todos.push(data);
                 $scope.todo = {}
-            }).catch(function (response) {
+            }).catch(function (response)
+            {
                 alert(response.data.title[0]);
             });
     };
@@ -68,11 +73,13 @@ myAppModule.controller('TodoController', ['$scope', '$http', function($scope, $h
                 title: todo.title,
                 done: todo.done,
                 priority: todo.priority
-            }).success(function (data, status, headers, config) {
+            }).success(function (data, status, headers, config)
+            {
                 todo = data;
                 $scope.todoForEdit = null;
                 $scope.todo = {};
-            }).catch(function (response) {
+            }).catch(function (response)
+            {
                 alert(response.data.id[0]);
             });
     };
