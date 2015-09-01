@@ -7,7 +7,7 @@
                 <option>2</option>
                 <option>3</option>
             </select>
-            <input type='text' ng-model="todo.title">
+            <input type="text" ng-model="todo.title">
             <input type="submit" value="Add" ng-disabled="!todo.title || todoForEdit">
         </form>
         <button id="edit" ng-hide="!todoForEdit || !todo.title" ng-click="updateTodo(todo)">Edit</button>
