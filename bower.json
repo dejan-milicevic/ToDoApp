@@ -1,11 +1,11 @@
 {
-  "name": "vivifyTestProject",
+  "name": "todoapp",
   "version": "0.0.1",
-  "homepage": "https://github.com/dejan-milicevic/vivifyTestProject",
+  "homepage": "https://github.com/dejan-milicevic/to-do-app",
   "authors": [
-    "Dejan Milicevic <dejan.m@vivifyideas.com>"
+    "Dejan Milicevic <dejan.milicevic.1986@gmail.com>"
   ],
-  "description": "Test project",
+  "description": "ToDo Application",
   "license": "MIT",
   "ignore": [
     "**/.*",

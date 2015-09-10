@@ -13,7 +13,7 @@ class ChangeEmailLength extends Migration
     public function up()
     {
         Schema::table('users', function ($table) {
-           $table->string('email', 100)->change(); 
+           $table->string('email', 255)->change(); 
         });
     }
 
@@ -25,7 +25,7 @@ class ChangeEmailLength extends Migration
     public function down()
     {
         Schema::table('users', function ($table) {
-           $table->string('email', 100)->change(); 
+           $table->string('email', 50)->change(); 
         });
     }
 }
